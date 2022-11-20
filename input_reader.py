@@ -1,32 +1,46 @@
 import inspect
 import re
-import requests
 import os
+import requests
 
 
-def puzzle_data_already_downloaded(day):
+AOC_URL = "https://adventofcode.com/2021/day"
+
+def puzzle_data_exists(day):
     return f"day_{day}.txt" in os.listdir("inputs")
 
-def get_input():
-    base_url = "https://adventofcode.com/2021/day/"
-    #day = re.search(r"\d{1,2}", inspect.stack()[1].filename.split("\\")[-1]).group(0)
+def read_test_input():
+    with open("inputs/test_data.txt", encoding="UTF-8") as file:
+        return file.read()
 
-    day = "1"
-    if not puzzle_data_already_downloaded(day):
-        jar = requests.cookies.RequestsCookieJar()
-        jar.set('session', os.getenv("AOC_SESSION_COOKIE"))
-        response = requests.get(base_url + day + "/input", cookies=jar)
-        if response.ok:
-            with open(f"inputs/day_{day}.txt") as file:
-                file.write(response.text, "w")
+def create_puzzle_data(day):
+    print(f"creating new puzzle data for day {day}")
+    jar = requests.cookies.RequestsCookieJar()
+    jar.set('session', os.getenv("AOC_SESSION_COOKIE"))
+    response = requests.get(f"{AOC_URL}/{day}/input", cookies=jar, timeout=5)
+    if response.ok:
+        with open(f"inputs/day_{day}.txt", "w", encoding="UTF-8") as file:
+            file.write(response.text)
 
-        with open(f"inputs/day_{day}.txt") as file:
-            file.write(response.text, "r")
+def read_input():
+    calling_file = [stack.filename for stack in inspect.stack() if "AdventOfCode" in stack.filename][-1]
 
+    day = re.search(r"\d{1,2}", calling_file.split("\\")[-1]).group(0)
+    if not puzzle_data_exists(day):
+        create_puzzle_data(day)
 
+    with open(f"inputs/day_{day}.txt", "r", encoding="UTF-8") as file:
+        return [line.rstrip('\n') for line in file]
 
-    #print(puzzle_text.text)
+def get_input_as_int(read_func=read_input):
+    return [int(x) for x in read_func()]
 
+def get_input_as_string(read_func=read_input):
+    return read_func()
 
-print(puzzle_data_already_downloaded(1))
-get_input()
+def get_input_from_regex(expr, occurence=0, read_func=read_input):
+    return [re.search(expr, x).group(occurence) for x in read_func()]
+
+def get_input_from_regex_groups(expr, read_func=read_input):
+    return [re.search(expr, x).groups for x in read_func()]
+
