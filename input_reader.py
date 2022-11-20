@@ -38,9 +38,8 @@ def get_input_as_int(read_func=read_input):
 def get_input_as_string(read_func=read_input):
     return read_func()
 
-def get_input_from_regex(expr, occurence=0, read_func=read_input):
+def get_input_with_regex(expr, occurence=0, read_func=read_input):
     return [re.search(expr, x).group(occurence) for x in read_func()]
 
-def get_input_from_regex_groups(expr, read_func=read_input):
+def get_input_with_regex_groups(expr, read_func=read_input):
     return [re.search(expr, x).groups for x in read_func()]
-
