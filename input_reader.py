@@ -45,8 +45,10 @@ def get_as_strings(read_func=read_input, split_cond=" "):
     return [[y for y in x.split(split_cond)] for x in read_func()]
 
 def get_with_regex(expr, group_idx=0, read_func=read_input):
-    #return [re.search(expr, x).group(group_idx) for x in read_func()]
     return [m.group(group_idx) for l in read_func() for m in [re.search(expr, l)] if m]
+
+def get_with_regex_with_int_cast(expr, group_idx=0, read_func=read_input):
+    return [int(m.group(group_idx)) if m.group(group_idx).isnumeric() else m.group(group_idx) for l in read_func() for m in [re.search(expr, l)] if m]
 
 def get_with_regex_groups(expr, read_func=read_input):
     return [m.groups() for l in read_func() for m in [re.search(expr, l)] if m]
