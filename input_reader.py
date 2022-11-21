@@ -52,3 +52,6 @@ def get_with_regex_with_int_cast(expr, group_idx=0, read_func=read_input):
 
 def get_with_regex_groups(expr, read_func=read_input):
     return [m.groups() for l in read_func() for m in [re.search(expr, l)] if m]
+
+def get_with_regex_groups_int_cast(expr, read_func=read_input):
+    return [[int(x) if x.isnumeric() else x for x in m.groups()] for l in read_func() for m in [re.search(expr, l)] if m]
