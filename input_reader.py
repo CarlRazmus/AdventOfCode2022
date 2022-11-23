@@ -43,30 +43,52 @@ def read_input_lines():
     with open(f"inputs/day_{day}.txt", "r", encoding="UTF-8") as file:
         return [line.rstrip('\n') for line in file]
 
-def get_as_int(lines):
-    return [int(line) for line in lines]
 
-def get_as_ints(lines, split_cond=None):
-    print(lines)
-    return [[int(y) for y in line.split(split_cond)] for line in lines]
+def get_lines_as_int(lines):
+    return [get_lines_as_int(line) for line in lines]
+
+def get_lines_as_ints(lines):
+    return [get_as_ints(line) for line in lines]
+
+def get_lines_as_string(lines, split_cond=None):
+    return [get_as_string(line, split_cond) for line in lines]
+
+def get_lines_with_regex(expr, lines, group_idx=0):
+    return [get_with_regex(expr, l, group_idx=group_idx) for l in lines]
+
+def get_lines_with_regex_with_int_cast(expr, lines, group_idx=0):
+    return [get_with_regex_with_int_cast(expr=expr, line=line, group_idx=group_idx) for line in lines]
+
+def get_lines_with_regex_groups(expr, lines):
+    return [get_with_regex_groups(expr=expr, line=line) for line in lines]
+
+def get_lines_with_regex_groups_int_cast(expr, lines):
+    return [get_with_regex_groups_int_cast(expr=expr, line=line) for line in lines]
+
+
+def get_as_int(line):
+    return int(line)
+
+def get_as_ints(line, split_cond=None):
+    return [int(y) for y in line.split(split_cond)]
 
 def get_as_string(lines):
     return lines
 
-def get_as_strings(lines, split_cond=None):
-    return [[y for y in line.split(split_cond)] for line in lines]
+def get_as_strings(line, split_cond=None):
+    return [y for y in line.split(split_cond)]
 
-def get_with_regex(expr, lines, group_idx=0):
-    return [m.group(group_idx) for l in lines for m in [re.search(expr, l)] if m]
+def get_with_regex(expr, line, group_idx=0):
+    return [m.group(group_idx) for m in [re.search(expr, line)] if m]
 
-def get_with_regex_with_int_cast(expr, lines, group_idx=0):
-    return [int(m.group(group_idx)) if m.group(group_idx).isnumeric() else m.group(group_idx) for line in lines for m in [re.search(expr, line)] if m]
+def get_with_regex_with_int_cast(expr, line, group_idx=0):
+    return [int(m.group(group_idx)) if m.group(group_idx).isnumeric() else m.group(group_idx) for m in [re.search(expr, line)] if m]
 
-def get_with_regex_groups(expr, lines):
-    return [m.groups() for line in lines for m in [re.search(expr, line)] if m]
+def get_with_regex_groups(expr, line):
+    return [m.groups() for m in [re.search(expr, line)] if m]
 
-def get_with_regex_groups_int_cast(expr, lines):
-    return [[int(x) if x.isnumeric() else x for x in m.groups()] for line in lines for m in [re.search(expr, line)] if m]
+def get_with_regex_groups_int_cast(expr, line):
+    return [[int(x) if x.isnumeric() else x for x in m.groups()] for m in [re.search(expr, line)] if m]
 
 def get_with_separator(separator):
     return read_input().split(separator)
