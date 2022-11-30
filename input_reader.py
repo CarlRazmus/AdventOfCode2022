@@ -4,7 +4,7 @@ import os
 import requests
 
 
-AOC_URL = "https://adventofcode.com/2021/day"
+AOC_URL = "https://adventofcode.com/2022/day"
 
 def puzzle_data_exists(day):
     return f"day_{day}.txt" in os.listdir("inputs")
@@ -45,13 +45,13 @@ def read_input_lines():
 
 
 def get_lines_as_int(lines):
-    return [get_lines_as_int(line) for line in lines]
+    return [int(c) for c in lines]
 
 def get_lines_as_ints(lines):
     return [get_as_ints(line) for line in lines]
 
-def get_lines_as_string(lines, split_cond=None):
-    return [get_as_string(line, split_cond) for line in lines]
+def get_lines_as_strings(lines, split_cond=None):
+    return [line.split(split_cond) for line in lines]
 
 def get_lines_with_regex(expr, lines, group_idx=0):
     return [get_with_regex(expr, l, group_idx=group_idx) for l in lines]
@@ -66,17 +66,8 @@ def get_lines_with_regex_groups_int_cast(expr, lines):
     return [get_with_regex_groups_int_cast(expr=expr, line=line) for line in lines]
 
 
-def get_as_int(line):
-    return int(line)
-
 def get_as_ints(line, split_cond=None):
     return [int(y) for y in line.split(split_cond)]
-
-def get_as_string(lines):
-    return lines
-
-def get_as_strings(line, split_cond=None):
-    return [y for y in line.split(split_cond)]
 
 def get_with_regex(expr, line, group_idx=0):
     return [m.group(group_idx) for m in [re.search(expr, line)] if m]
