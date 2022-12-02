@@ -19,7 +19,7 @@ def create_puzzle_data(day):
         with open(f"inputs/day_{day}.txt", "w", encoding="UTF-8") as file:
             file.write(response.text)
 
-def read_test_input():
+def read_test_input_lines():
     with open("inputs/test_data.txt", encoding="UTF-8") as file:
         return [line.rstrip('\n') for line in file]
 
