@@ -83,3 +83,7 @@ def get_with_regex_groups_int_cast(expr, line):
 
 def get_with_separator(separator):
     return read_input().split(separator)
+
+
+def findall(expr, line):
+    return re.findall(expr, line)
