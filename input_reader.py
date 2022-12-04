@@ -79,7 +79,7 @@ def get_with_regex_groups(expr, line):
     return [m.groups() for m in [re.search(expr, line)] if m]
 
 def get_with_regex_groups_int_cast(expr, line):
-    return [[int(x) if x.isnumeric() else x for x in m.groups()] for m in [re.search(expr, line)] if m]
+    return [int(x) if x.isnumeric() else x for x in re.search(expr, line).groups()]
 
 def get_with_separator(separator):
     return read_input().split(separator)
