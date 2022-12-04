@@ -16,8 +16,8 @@ def get_player_hand(elf, command):
     return win_combos[elf] if command == "LOSE" else elf if command == "DRAW" else get_losing_hand(elf)
 
 if __name__ == "__main__":
-    hands = [[translation[x], translation[y]] for x, y in ir.get_lines_as_strings(ir.read_input_lines())]
+    hands = [[translation[x], translation[y]] for x, y in ir.get_lines_as_strings()]
     print(sum([calc_score(elf, player) for elf, player in hands]))
 
-    hands = [[translation2[x], translation2[y]] for x, y in ir.get_lines_as_strings(ir.read_input_lines())]
+    hands = [[translation2[x], translation2[y]] for x, y in ir.get_lines_as_strings()]
     print(sum([calc_score(elf, get_player_hand(elf, player)) for elf, player in hands]))

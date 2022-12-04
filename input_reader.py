@@ -44,26 +44,26 @@ def read_input_lines():
         return [line.rstrip('\n') for line in file]
 
 
-def get_lines_as_int(lines):
-    return [int(c) for c in lines]
+def get_lines_as_int():
+    return [int(c) for c in read_input_lines()]
 
-def get_lines_as_ints(lines):
-    return [get_as_ints(line) for line in lines]
+def get_lines_as_ints():
+    return [get_as_ints(line) for line in read_input_lines()]
 
-def get_lines_as_strings(lines, split_cond=None):
-    return [line.split(split_cond) for line in lines]
+def get_lines_as_strings(split_cond=None):
+    return [line.split(split_cond) for line in read_input_lines()]
 
-def get_lines_with_regex(expr, lines, group_idx=0):
-    return [get_with_regex(expr, l, group_idx=group_idx) for l in lines]
+def get_lines_with_regex(expr, group_idx=0):
+    return [get_with_regex(expr, l, group_idx=group_idx) for l in read_input_lines()]
 
-def get_lines_with_regex_with_int_cast(expr, lines, group_idx=0):
-    return [get_with_regex_with_int_cast(expr=expr, line=line, group_idx=group_idx) for line in lines]
+def get_lines_with_regex_with_int_cast(expr, group_idx=0):
+    return [get_with_regex_with_int_cast(expr=expr, line=line, group_idx=group_idx) for line in read_input_lines()]
 
-def get_lines_with_regex_groups(expr, lines):
-    return [get_with_regex_groups(expr=expr, line=line) for line in lines]
+def get_lines_with_regex_groups(expr):
+    return [get_with_regex_groups(expr=expr, line=line) for line in read_input_lines()]
 
-def get_lines_with_regex_groups_int_cast(expr, lines):
-    return [get_with_regex_groups_int_cast(expr=expr, line=line) for line in lines]
+def get_lines_with_regex_groups_int_cast(expr):
+    return [get_with_regex_groups_int_cast(expr=expr, line=line) for line in read_input_lines()]
 
 
 def get_as_ints(line, split_cond=None):
