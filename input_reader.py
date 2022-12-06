@@ -19,6 +19,10 @@ def create_puzzle_data(day):
         with open(f"inputs/day_{day}.txt", "w", encoding="UTF-8") as file:
             file.write(response.text)
 
+def read_test_input():
+    with open("inputs/test_data.txt", "r", encoding="UTF-8") as file:
+        return file.read()
+
 def read_test_input_lines():
     with open("inputs/test_data.txt", encoding="UTF-8") as file:
         return [line.rstrip('\n') for line in file]
@@ -56,11 +60,11 @@ def get_lines_as_strings(split_cond=None):
 def get_lines_with_regex(expr, group_idx=0):
     return [get_with_regex(expr, l, group_idx=group_idx) for l in read_input_lines()]
 
-def get_lines_with_regex_with_int_cast(expr, group_idx=0):
-    return [get_with_regex_with_int_cast(expr=expr, line=line, group_idx=group_idx) for line in read_input_lines()]
-
 def get_lines_with_regex_groups(expr):
     return [get_with_regex_groups(expr=expr, line=line) for line in read_input_lines()]
+
+def get_lines_with_regex_with_int_cast(expr, group_idx=0):
+    return [get_with_regex_with_int_cast(expr=expr, line=line, group_idx=group_idx) for line in read_input_lines()]
 
 def get_lines_with_regex_groups_int_cast(expr):
     return [get_with_regex_groups_int_cast(expr=expr, line=line) for line in read_input_lines()]
