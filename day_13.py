@@ -51,18 +51,20 @@ if __name__ == "__main__":
     packets.append([[2]])
     packets.append([[6]])
     packet = packets.pop()
-    sorted_list = [packet]
+    #sorted_list = [packet]
 
-    while len(packets) > 0:
-        packet = packets.pop()
-        insert_at_end = True
-        for idx, packet_from_sorted_list in enumerate(sorted_list):
-            if iscorrectorder(packet, packet_from_sorted_list):
-                sorted_list.insert(idx, packet)
-                insert_at_end = False
-                break
-        if insert_at_end:
-            sorted_list.append(packet)
+    #while len(packets) > 0:
+    #    packet = packets.pop()
+    #    insert_at_end = True
+    #    for idx, packet_from_sorted_list in enumerate(sorted_list):
+    #        if iscorrectorder(packet, packet_from_sorted_list):
+    #            sorted_list.insert(idx, packet)
+    #            insert_at_end = False
+    #            break
+    #    if insert_at_end:
+    #        sorted_list.append(packet)
+
+    sorted_list = sorted(packets, iscorrectorder)
 
     first_idx = sorted_list.index([[2]]) + 1
     second_idx = sorted_list.index([[6]]) + 1

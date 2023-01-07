@@ -69,6 +69,9 @@ def get_lines_with_regex_with_int_cast(expr, group_idx=0):
 def get_lines_with_regex_groups_int_cast(expr):
     return [get_with_regex_groups_int_cast(expr=expr, line=line) for line in read_input_lines()]
 
+def get_lines_with_regex_int_groups(expr):
+    return [get_with_regex_int_groups(expr=expr, line=line) for line in read_input_lines()]
+
 
 def get_as_ints(line, split_cond=None):
     return [int(y) for y in line.split(split_cond)]
@@ -84,6 +87,9 @@ def get_with_regex_groups(expr, line):
 
 def get_with_regex_groups_int_cast(expr, line):
     return [int(x) if x.isnumeric() else x for x in re.search(expr, line).groups()]
+
+def get_with_regex_int_groups(expr, line):
+    return [int(x) for x in re.search(expr, line).groups()]
 
 def get_with_separator(separator):
     return read_input().split(separator)
