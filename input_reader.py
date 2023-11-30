@@ -19,14 +19,6 @@ def create_puzzle_data(day):
         with open(f"inputs/day_{day}.txt", "w", encoding="UTF-8") as file:
             file.write(response.text)
 
-def read_test_input():
-    with open("inputs/test_data.txt", "r", encoding="UTF-8") as file:
-        return file.read()
-
-def read_test_input_lines():
-    with open("inputs/test_data.txt", encoding="UTF-8") as file:
-        return [line.rstrip('\n') for line in file]
-
 def get_current_day_and_generate_input_data():
     calling_file = [stack.filename for stack in inspect.stack() if "AdventOfCode" in stack.filename][-1]
     day = re.search(r"\d{1,2}", calling_file.split("\\")[-1]).group(0)
@@ -34,6 +26,14 @@ def get_current_day_and_generate_input_data():
     if not puzzle_data_exists(day):
         create_puzzle_data(day)
     return day
+
+def read_test_input():
+    with open("inputs/test_data.txt", "r", encoding="UTF-8") as file:
+        return file.read()
+
+def read_test_input_lines():
+    with open("inputs/test_data.txt", encoding="UTF-8") as file:
+        return [line.rstrip('\n') for line in file]
 
 def read_input():
     day = get_current_day_and_generate_input_data()
@@ -54,27 +54,27 @@ def get_lines_as_int():
 def get_lines_as_ints():
     return [get_as_ints(line) for line in read_input_lines()]
 
-def get_lines_as_strings(split_cond=None):
-    return [line.split(split_cond) for line in read_input_lines()]
+def get_lines_as_strings(sep=None):
+    return [line.split(sep) for line in read_input_lines()]
 
 def get_lines_with_regex(expr, group_idx=0):
-    return [get_with_regex(expr, l, group_idx=group_idx) for l in read_input_lines()]
+    return [get_with_regex(expr, l, group_idx) for l in read_input_lines()]
 
 def get_lines_with_regex_groups(expr):
-    return [get_with_regex_groups(expr=expr, line=line) for line in read_input_lines()]
+    return [get_with_regex_groups(expr, line) for line in read_input_lines()]
 
 def get_lines_with_regex_with_int_cast(expr, group_idx=0):
-    return [get_with_regex_with_int_cast(expr=expr, line=line, group_idx=group_idx) for line in read_input_lines()]
+    return [get_with_regex_with_int_cast(expr, line, group_idx) for line in read_input_lines()]
 
 def get_lines_with_regex_groups_int_cast(expr):
-    return [get_with_regex_groups_int_cast(expr=expr, line=line) for line in read_input_lines()]
+    return [get_with_regex_groups_int_cast(expr, line) for line in read_input_lines()]
 
 def get_lines_with_regex_int_groups(expr):
-    return [get_with_regex_int_groups(expr=expr, line=line) for line in read_input_lines()]
+    return [get_with_regex_int_groups(expr, line) for line in read_input_lines()]
 
 
-def get_as_ints(line, split_cond=None):
-    return [int(y) for y in line.split(split_cond)]
+def get_as_ints(line, sep=None):
+    return [int(y) for y in line.split(sep)]
 
 def get_with_regex(expr, line, group_idx=0):
     return [m.group(group_idx) for m in [re.search(expr, line)] if m]
@@ -91,8 +91,8 @@ def get_with_regex_groups_int_cast(expr, line):
 def get_with_regex_int_groups(expr, line):
     return [int(x) for x in re.search(expr, line).groups()]
 
-def get_with_separator(separator):
-    return read_input().split(separator)
+def get_with_separator(sep):
+    return read_input().split(sep)
 
 
 def findall(expr, line):
